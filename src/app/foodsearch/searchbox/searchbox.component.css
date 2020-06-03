@@ -1,0 +1,11 @@
+.foodSearchbox {
+  min-width: 150px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.searchbox-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}

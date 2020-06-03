@@ -1,0 +1,4 @@
+{
+  "foodSearchUrl": "http://localhost:8000/foodsearch",
+  "textfile": "assets/textfile.txt"
+}

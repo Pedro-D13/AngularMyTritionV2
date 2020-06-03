@@ -1,0 +1,71 @@
+<div class="error-message" *ngIf="errList">
+  <mat-list *ngFor="let each of errList">
+    <mat-list-item>
+      <mat-error>
+        {{ each }}
+      </mat-error>
+    </mat-list-item>
+  </mat-list>
+</div>
+
+<h1 class="sign-up-form">Register page</h1>
+
+<div [ngSwitch]="loading">
+  <mat-progress-spinner
+    *ngSwitchCase="loading == true"
+    style="margin: 2rem auto;"
+    color="accent"
+    mode="indeterminate"
+    value="50"
+  ></mat-progress-spinner>
+
+  <div *ngSwitchDefault class="sign-up-form">
+    <form [formGroup]="registrationForm" (ngSubmit)="postReg()">
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>Enter a username </mat-label>
+        <input
+          matInput
+          placeholder="username"
+          formControlName="username"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>password</mat-label>
+        <input
+          matInput
+          value=""
+          formControlName="password1"
+          type="password"
+          required
+        />
+      </mat-form-field>
+
+      <br />
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>Re-enter password</mat-label>
+        <input matInput formControlName="password2" type="password" required />
+      </mat-form-field>
+      <br />
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>Enter your email</mat-label>
+        <input
+          matInput
+          placeholder="you@join.now"
+          formControlName="email"
+          type="email"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <button
+        type="submit"
+        [disabled]="registrationForm.invalid"
+        mat-stroked-button
+      >
+        Sign up
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<mat-horizontal-stepper #stepper linear="true" *ngIf="categoryList$">
+  <ng-content select="[mat-progress-spinner]"></ng-content>
+  <mat-step [stepControl]="categroyList" [editable]="true">
+    <ng-template matStepLabel> select a category </ng-template>
+    <div #categroyList>
+      <mat-list *ngFor="let category of categoryList$ | async">
+        <button
+          mat-raised-button
+          matStepperNext
+          color="primary"
+          (click)="getCategoryItems(category)"
+        >
+          {{ category.branded_food_category }}
+        </button>
+      </mat-list>
+      <mat-progress-spinner *ngIf="loading" mode="indeterminate" value="50">
+      </mat-progress-spinner>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="categoryItems">
+    <ng-template matStepLabel> choose an item </ng-template>
+    <mat-progress-spinner *ngIf="itemLoading" mode="indeterminate" value="50">
+    </mat-progress-spinner>
+    <div #categoryItems *ngIf="categoryItems$">
+      <mat-list *ngFor="let item of categoryItems$ | async">
+        <button
+          mat-raised-button
+          color="accent"
+          matStepperNext
+          (click)="getMacros(item)"
+        >
+          {{ item.description }}
+        </button>
+      </mat-list>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="macros">
+    <mat-chip-list>
+      <ng-template matStepLabel>
+        Macros:
+        <mat-chip *ngIf="currentItemSelection">
+          <div>
+            {{ currentItemSelection | slice: 0:8 }}
+          </div>
+        </mat-chip>
+      </ng-template>
+    </mat-chip-list>
+    <h2>Macros</h2>
+
+    <mat-progress-spinner *ngIf="macroLoading" mode="indeterminate" value="50">
+    </mat-progress-spinner>
+    <h5>per 100gram</h5>
+    <div *ngFor="let macro of macros$ | async">
+      <mat-chip-list>
+        <mat-chip
+          selected
+          style="
+            width: fit-content;
+            height: 4rem;
+            margin: 0.5rem;
+            padding: 2rem;
+          "
+        >
+          <div class="mini-card">
+            {{ macro.amount }} {{ macro.unit_name }}
+            <br />
+            {{ macro.name }}
+            <br />
+          </div>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+    <button mat-raised-button color="accent">Favourite⭐</button>
+  </mat-step>
+</mat-horizontal-stepper>

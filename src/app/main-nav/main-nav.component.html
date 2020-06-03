@@ -1,0 +1,42 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="false"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Search</a>
+      <a mat-list-item href="#">Plan Meals</a>
+      <a mat-list-item href="#"> Login</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <a class="site-title" routerLink=""> <span>MytritionUIV2</span></a>
+      <ng-container *ngIf="!(isHandset$ | async)">
+        <span class="spacer"></span>
+        <a mat-item routerLink="">Search</a>
+        <a mat-item>Plan Meals</a>
+        <a mat-item routerLink="/register">Sign up</a>
+        <a mat-item routerLink="/login">Login</a>
+        <a mat-item routerLink="/logout">Logout</a>
+        <a mat-item routerLink="/profile">Profile</a>
+      </ng-container>
+    </mat-toolbar>
+    <!-- rest of application gets rendered below since nav wraps around it -->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

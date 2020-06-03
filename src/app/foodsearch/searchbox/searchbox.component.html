@@ -1,0 +1,39 @@
+<div class="searchbox-div">
+  <form [formGroup]="searchBoxForm" (ngSubmit)="CategoryList()">
+    <mat-checkbox> Branded Search?</mat-checkbox>
+    <mat-form-field
+      hideRequiredMarker="false"
+      class="foodSearchbox"
+      appearance="outline"
+      color="primary"
+    >
+      <mat-label> Search Food </mat-label>
+      <input formControlName="description" matInput required />
+      <mat-error *ngIf="searchBoxForm.invalid">
+        too short at least 3 letters long
+      </mat-error>
+    </mat-form-field>
+    <br />
+    <button
+      [disabled]="searchBoxForm.invalid"
+      mat-button
+      color="accent"
+      type="submit"
+      mat-raised-button
+    >
+      Search 🥑
+    </button>
+  </form>
+</div>
+
+<app-category-list
+  [description]="description"
+  [categoryList$]="categoryList$"
+></app-category-list>
+
+<mat-progress-spinner
+  *ngIf="loading"
+  color="accent"
+  mode="indeterminate"
+  value="50"
+></mat-progress-spinner>
