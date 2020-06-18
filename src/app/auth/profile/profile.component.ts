@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { AuthenticateService } from "../authenticate.service";
+import { PlanmealsService } from "src/app/foodsearch/servicesFolder/planmeals.service";
+import { map, tap, toArray } from "rxjs/operators";
+import { FavFoodList } from "src/app/foodsearch/models/api-data-interface";
 
 @Component({
   selector: "app-profile",
@@ -8,17 +10,14 @@ import { AuthenticateService } from "../authenticate.service";
   styleUrls: ["./profile.component.css"],
 })
 export class ProfileComponent implements OnInit {
-  snackBarWelcome;
-  data;
-  constructor(
-    private snackBar: MatSnackBar,
-    private http: AuthenticateService
-  ) {}
+  data$;
+  newList = [];
+  constructor(private snackBar: MatSnackBar, private http: PlanmealsService) {}
 
   ngOnInit(): void {
-    this.snackBar.open("Welcome man so glad you could join us", "X", {
+    this.data$ = this.http.getPlanMealsData();
+    this.snackBar.open("Welcome so glad you could join us", "X", {
       duration: 2500,
     });
-    this.data = this.http.getProfileData();
   }
 }

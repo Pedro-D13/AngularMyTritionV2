@@ -1,6 +1,9 @@
 <p>profile works!</p>
 <p>successfully logged!</p>
-
-<div *ngFor="let x of data | async">
-  {{ x["description"] }}
+<div *ngIf="newList">
+  <ul *ngFor="let each of newList">
+    {{
+      each
+    }}
+  </ul>
 </div>

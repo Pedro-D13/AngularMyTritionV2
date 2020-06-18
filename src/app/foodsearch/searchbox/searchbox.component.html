@@ -26,14 +26,15 @@
   </form>
 </div>
 
-<app-category-list
-  [description]="description"
-  [categoryList$]="categoryList$"
-></app-category-list>
-
 <mat-progress-spinner
   *ngIf="loading"
   color="accent"
   mode="indeterminate"
   value="50"
 ></mat-progress-spinner>
+
+<app-category-list
+  [description]="description"
+  [categoryList$]="categoryList$"
+  [success]="success"
+></app-category-list>

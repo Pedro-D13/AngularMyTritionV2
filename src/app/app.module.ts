@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -18,7 +18,7 @@ import { LoginComponent } from "./auth/login/login.component";
 import { ProfileComponent } from "./auth/profile/profile.component";
 import { ErrorComponent } from "./error/error.component";
 import { LogoutComponent } from "./auth/logout/logout.component";
-import { TokenInterceptorService } from "./auth/token-interceptor.service";
+import { StoreModule } from "@ngrx/store";
 
 @NgModule({
   declarations: [
@@ -35,6 +35,7 @@ import { TokenInterceptorService } from "./auth/token-interceptor.service";
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
+    StoreModule.forRoot({}),
     FoodsearchModule,
     AppRoutingModule,
     LayoutModule,
@@ -44,13 +45,7 @@ import { TokenInterceptorService } from "./auth/token-interceptor.service";
     MatIconModule,
     MatListModule,
   ],
-  providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptorService,
-    //   multi: true,
-    // },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

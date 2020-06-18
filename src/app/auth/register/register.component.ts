@@ -77,6 +77,7 @@ export class RegisterComponent implements OnInit {
       email: this.emailData,
     };
     this.auth.registerUser(payload).subscribe(
+      // on succcessful emissions
       (data) => {
         this.registeredUserResponse$ = data;
         this.loading = true;
@@ -85,6 +86,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigateByUrl("login");
         }, 2300);
       },
+      // error
       (error) => {
         this.errResponse$ = error;
         this.snackBar.open(
@@ -95,7 +97,9 @@ export class RegisterComponent implements OnInit {
           }
         );
         this.errList.push(this.errResponse$);
-      }
+      },
+      // complete
+      () => console.log("complete")
     );
   }
 }

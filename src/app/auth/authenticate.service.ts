@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 import { catchError } from "rxjs/operators";
-import { Newuser } from "./newuser";
-import { Loginuser } from "./loginuser";
+import { Newuser } from "./models/newuser";
+import { Loginuser } from "./models/loginuser";
 import { throwError } from "rxjs";
 
 @Injectable({
@@ -11,6 +11,7 @@ import { throwError } from "rxjs";
 })
 export class AuthenticateService {
   readonly URL = "http://localhost:8000";
+  getPlanMealsData: any;
 
   constructor(private http: HttpClient) {}
 
@@ -30,20 +31,12 @@ export class AuthenticateService {
       .pipe(catchError(this.handleError));
   }
 
-  // profile
-  getProfileData() {
-    let key = localStorage.getItem("token");
-    sessionStorage;
-    return this.http.get(`${this.URL}/profile/`, {
-      headers: { Authorization: `token ${key}` },
-    });
-  }
-
   // log users out
   logout() {
+    let key = localStorage.getItem("token");
     localStorage.removeItem("token");
     return this.http.post(`${this.URL}/auth/token/logout/`, {
-      observe: "body",
+      headers: { Authorization: `token ${key}` },
     });
   }
 

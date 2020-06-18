@@ -11,13 +11,12 @@ export interface CategoryItem {
 
 export interface Macros {
   name: string;
-  unit_name: string;
   amount: number;
+  unit_name: string;
 }
 
-export interface User {
-  name: string;
-  email: string;
-  password1: string;
-  password2: string;
+export interface FavFoodList {
+  description: string;
+  fdc_id: number;
+  nutr_vals?: Macros[];
 }

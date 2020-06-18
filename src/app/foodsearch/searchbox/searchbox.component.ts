@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { publish, tap } from "rxjs/operators";
 import { Observable } from "rxjs";
-import { CategoryList } from "../api-data-interface";
+import { CategoryList } from "../models/api-data-interface";
 
 import { BackendCallsService } from "../servicesFolder/backend-calls.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-searchbox",
@@ -19,7 +20,11 @@ export class SearchboxComponent implements OnInit {
   description: string;
   checked = false;
 
-  constructor(private bcs: BackendCallsService, private fb: FormBuilder) {}
+  constructor(
+    private bcs: BackendCallsService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.searchBoxForm = this.fb.group({
@@ -32,27 +37,35 @@ export class SearchboxComponent implements OnInit {
     return this.description;
   }
 
-  async CategoryList() {
+  CategoryList() {
     this.clearCurrentResults();
     this.loading = true;
-    try {
-      this.categoryList$ = await this.bcs.getCategoryList(this.descriptionVal);
-      this.categoryList$.pipe(
-        tap((_) => {
-          this.loading = false;
-        })
-      );
-    } catch (err) {
-      this.loading = false;
-      console.log(err);
-    }
-    // fall back if request takes longer than 5 seconds,
+    this.success = null;
+    this.categoryList$ = this.bcs.getCategoryList(this.descriptionVal);
+    this.categoryList$.subscribe(
+      (next) => {
+        this.loadingFin();
+        this.success = true;
+      },
+      (err) => {
+        this.clearCurrentResults();
+        this.loadingFin();
+        this.success = false;
+        this.snackBar.open(`${err.error}:${this.descriptionVal}`, "X", {
+          duration: 2000,
+        });
+      }
+    );
     setTimeout(() => {
-      this.loading = false;
-    }, 3300);
+      this.loadingFin();
+    }, 6000);
   }
 
   clearCurrentResults() {
     this.categoryList$ = null;
+  }
+
+  loadingFin() {
+    this.loading = false;
   }
 }

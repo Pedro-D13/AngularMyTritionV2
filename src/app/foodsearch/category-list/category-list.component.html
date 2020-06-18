@@ -1,5 +1,6 @@
+<ng-content select="[mat-progress-spinner]"></ng-content>
+
 <mat-horizontal-stepper #stepper linear="true" *ngIf="categoryList$">
-  <ng-content select="[mat-progress-spinner]"></ng-content>
   <mat-step [stepControl]="categroyList" [editable]="true">
     <ng-template matStepLabel> select a category </ng-template>
     <div #categroyList>
@@ -40,7 +41,7 @@
         Macros:
         <mat-chip *ngIf="currentItemSelection">
           <div>
-            {{ currentItemSelection | slice: 0:8 }}
+            {{ currentItemSelection | slice: 0:10 }}
           </div>
         </mat-chip>
       </ng-template>
@@ -70,6 +71,8 @@
         </mat-chip>
       </mat-chip-list>
     </div>
-    <button mat-raised-button color="accent">Favourite⭐</button>
+    <!-- <button mat-raised-button (click)="favFood()" color="accent"> -->
+    <!-- Favourite⭐ -->
+    <!-- </button> -->
   </mat-step>
 </mat-horizontal-stepper>

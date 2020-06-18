@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import {
   CanActivate,
+  CanDeactivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
@@ -10,7 +11,7 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class AuthenticatedGuard implements CanActivate {
+export class LogoutGuard implements CanActivate, CanDeactivate<unknown> {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -19,10 +20,21 @@ export class AuthenticatedGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!!localStorage.getItem("token")) {
+    return true;
+  }
+  canDeactivate(
+    component: unknown,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+    nextState?: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    if (localStorage.getItem("token")) {
       return true;
     } else {
-      alert("please login");
       return false;
     }
   }

@@ -28,12 +28,14 @@
       <a class="site-title" routerLink=""> <span>MytritionUIV2</span></a>
       <ng-container *ngIf="!(isHandset$ | async)">
         <span class="spacer"></span>
+        <!-- <div [ngSwitch]=> -->
         <a mat-item routerLink="">Search</a>
-        <a mat-item>Plan Meals</a>
+        <a mat-item routerLink="/kanban">Plan Meals</a>
         <a mat-item routerLink="/register">Sign up</a>
         <a mat-item routerLink="/login">Login</a>
         <a mat-item routerLink="/logout">Logout</a>
         <a mat-item routerLink="/profile">Profile</a>
+        <!-- </div> -->
       </ng-container>
     </mat-toolbar>
     <!-- rest of application gets rendered below since nav wraps around it -->

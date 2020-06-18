@@ -4,10 +4,9 @@ import {
   CategoryList,
   CategoryItem,
   Macros,
-  User,
-} from "../../foodsearch/api-data-interface";
+} from "../models/api-data-interface";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { share, shareReplay } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -18,14 +17,19 @@ export class BackendCallsService {
   private data: any = [];
 
   getCategoryList(description): Observable<CategoryList[]> {
-    return this.http.get<CategoryList[]>(
-      `${this.API_URL}/${description}/desc/`
-    );
+    let codedDesc = encodeURI(description);
+    return this.http
+      .get<CategoryList[]>(`${this.API_URL}/${codedDesc}/desc/`)
+      .pipe(shareReplay());
   }
   getCategoryItems(description, category): Observable<CategoryItem[]> {
-    return this.http.get<CategoryItem[]>(
-      `${this.API_URL}/${description}/desc/${category.branded_food_category}/category/`
-    );
+    let codedDesc = encodeURIComponent(description);
+    let codedCat = encodeURIComponent(category.branded_food_category);
+    return this.http
+      .get<CategoryItem[]>(
+        `${this.API_URL}/${codedDesc}/desc/${codedCat}/category/`
+      )
+      .pipe(shareReplay());
   }
 
   getMacros(item): Observable<Macros[]> {

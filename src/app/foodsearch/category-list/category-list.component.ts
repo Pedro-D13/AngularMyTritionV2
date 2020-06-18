@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { CategoryItem, Macros } from "../api-data-interface";
+import { CategoryItem, Macros } from "../models/api-data-interface";
 import { BackendCallsService } from "src/app/foodsearch/servicesFolder/backend-calls.service";
+import { PlanmealsService } from "../servicesFolder/planmeals.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-category-list",
@@ -12,6 +14,7 @@ import { BackendCallsService } from "src/app/foodsearch/servicesFolder/backend-c
 export class CategoryListComponent implements OnInit {
   categoryItems$: Observable<CategoryItem[]>;
   macros$: Observable<Macros[]>;
+
   selectable = true;
   loading: boolean;
   itemLoading: boolean;
@@ -26,38 +29,44 @@ export class CategoryListComponent implements OnInit {
   currentListSelection;
   currentItemSelection;
 
+  // favourite
+  foodItem;
+
   @Input("categoryList$") categoryList$;
 
   @Input("description") description;
 
-  constructor(private bcs: BackendCallsService) {}
+  @Input("success") success;
+
+  constructor(
+    private bcs: BackendCallsService,
+    private meals: PlanmealsService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {}
 
-  async getCategoryItems(category) {
+  getCategoryItems(category) {
     this.currentListSelection = category;
     this.itemLoading = true;
-    try {
-      this.categoryItems$ = await this.bcs
-        .getCategoryItems(this.description, category)
-        .pipe(
-          tap((_) => {
-            this.itemLoading = false;
-          })
-        );
-    } catch (err) {
-      console.log(err);
-    }
+    this.categoryItems$ = this.bcs
+      .getCategoryItems(this.description, category)
+      .pipe(
+        tap((_) => {
+          this.itemLoading = false;
+        })
+      );
     setTimeout(() => {
       this.itemLoading = false;
     }, 3000);
   }
 
-  async getMacros(item) {
+  getMacros(item) {
+    this.foodItem = item;
     this.currentItemSelection = item.description;
     this.macroLoading = true;
     try {
-      this.macros$ = await this.bcs.getMacros(item).pipe(
+      this.macros$ = this.bcs.getMacros(item).pipe(
         tap((_) => {
           this.macroLoading = false;
         })
@@ -68,5 +77,17 @@ export class CategoryListComponent implements OnInit {
     setTimeout(() => {
       this.macroLoading = false;
     }, 3000);
+  }
+
+  favFood(fdc_id) {
+    const response = this.meals.postPlanMealsData(fdc_id);
+    response.subscribe();
+    // this.added();
+  }
+
+  added() {
+    this.snackBar.open(`${this.foodItem.description} successfully added`, "X", {
+      duration: 3000,
+    });
   }
 }
