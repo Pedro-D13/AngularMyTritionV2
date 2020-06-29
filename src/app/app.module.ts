@@ -19,6 +19,11 @@ import { ProfileComponent } from "./auth/profile/profile.component";
 import { ErrorComponent } from "./error/error.component";
 import { LogoutComponent } from "./auth/logout/logout.component";
 import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import {} from "src/app/store/meal-kan-ban/";
+import { environment } from "../environments/environment"; // Angular CLI environment
+import { EffectsModule } from "@ngrx/effects";
+import { MealKanBanEffects } from "./store/meal-kan-ban/effects/meal-kan-ban.effects";
 
 @NgModule({
   declarations: [
@@ -36,6 +41,10 @@ import { StoreModule } from "@ngrx/store";
     HttpClientModule,
     SharedModule,
     StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 24,
+      logOnly: environment.production,
+    }),
     FoodsearchModule,
     AppRoutingModule,
     LayoutModule,
@@ -44,6 +53,7 @@ import { StoreModule } from "@ngrx/store";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    EffectsModule.forRoot([MealKanBanEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

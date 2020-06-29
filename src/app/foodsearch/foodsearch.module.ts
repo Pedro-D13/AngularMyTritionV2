@@ -4,7 +4,6 @@ import { CommonModule } from "@angular/common";
 import { SharedModule } from "../shared/shared.module";
 
 // components
-
 import { CategoryListComponent } from "./category-list/category-list.component";
 
 import { HighlightDirective } from "../highlight.directive";
@@ -13,13 +12,19 @@ import { StepperDirective } from "../stepper.directive";
 import { PlanmealsComponent } from "./planmeals/planmeals.component";
 import { MealKanBanComponent } from "./meal-kan-ban/meal-kan-ban.component";
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { StoreModule } from "@ngrx/store";
-import { reducers } from "./store";
+import { StoreModule, Store } from "@ngrx/store";
+import * as fromMealKanBan from "../store/meal-kan-ban/reducers/meal-kan-ban.reducers";
+import { EffectsModule } from "@ngrx/effects";
+import { MealKanBanEffects } from "../store/meal-kan-ban/effects/meal-kan-ban.effects";
 
 const modules = [
   CommonModule,
   SharedModule,
-  StoreModule.forFeature("FavFood", reducers),
+  DragDropModule,
+  StoreModule.forFeature(
+    fromMealKanBan.mealkanbanFeatureKey,
+    fromMealKanBan.reducer
+  ),
 ];
 
 const components = [
@@ -33,7 +38,7 @@ const components = [
 
 @NgModule({
   declarations: [...components],
-  imports: [...modules, DragDropModule],
+  imports: [...modules],
   exports: [...components],
   bootstrap: [SearchboxComponent],
 })
