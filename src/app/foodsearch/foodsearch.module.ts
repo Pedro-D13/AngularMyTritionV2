@@ -9,7 +9,6 @@ import { CategoryListComponent } from "./category-list/category-list.component";
 import { HighlightDirective } from "../highlight.directive";
 import { SearchboxComponent } from "./searchbox/searchbox.component";
 import { StepperDirective } from "../stepper.directive";
-import { PlanmealsComponent } from "./planmeals/planmeals.component";
 import { MealKanBanComponent } from "./meal-kan-ban/meal-kan-ban.component";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { StoreModule, Store } from "@ngrx/store";
@@ -30,7 +29,7 @@ const modules = [
 const components = [
   SearchboxComponent,
   CategoryListComponent,
-  PlanmealsComponent,
+
   HighlightDirective,
   StepperDirective,
   MealKanBanComponent,

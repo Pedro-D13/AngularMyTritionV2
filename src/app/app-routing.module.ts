@@ -4,12 +4,13 @@ import { SearchboxComponent } from "./foodsearch/searchbox/searchbox.component";
 import { RegisterComponent } from "./auth/register/register.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { ProfileComponent } from "./auth/profile/profile.component";
-import { ErrorComponent } from "./error/error.component";
+
 import { AuthenticatedGuard } from "./auth/guards/authenticated.guard";
 import { LogoutComponent } from "./auth/logout/logout.component";
-import { PlanmealsComponent } from "./foodsearch/planmeals/planmeals.component";
+
 import { MealKanBanComponent } from "./foodsearch/meal-kan-ban/meal-kan-ban.component";
 import { LogoutGuard } from "./auth/guards/logout.guard";
+import { ErrorComponent } from "./shared/error/error.component";
 
 const routes: Routes = [
   { path: "search", component: SearchboxComponent },
@@ -24,11 +25,7 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuard],
     component: ProfileComponent,
   },
-  {
-    path: "meals",
-    canActivate: [AuthenticatedGuard],
-    component: PlanmealsComponent,
-  },
+
   {
     path: "kanban",
     canActivate: [AuthenticatedGuard],
