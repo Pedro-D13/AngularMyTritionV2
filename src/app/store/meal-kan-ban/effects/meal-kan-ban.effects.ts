@@ -1,20 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { of, EMPTY, merge, concat } from "rxjs";
-import {
-  map,
-  catchError,
-  switchMap,
-  mergeMap,
-  exhaustMap,
-  tap,
-  concatMap,
-} from "rxjs/operators";
+import { map, catchError, mergeMap, tap, switchMap } from "rxjs/operators";
 
 import { PlanmealsService } from "src/app/foodsearch/servicesFolder/planmeals.service";
 import * as mealKanBanActions from "../actions/meal-kan-ban.actions";
 import { FavFoodList } from "src/app/foodsearch/models/api-data-interface";
-import { loadstate, savestate } from "../localstorage";
+import { loadstate, savestate, RehydrateState } from "../localstorage";
 
 @Injectable()
 export class MealKanBanEffects {
@@ -29,16 +20,29 @@ export class MealKanBanEffects {
     )
   ).subscribe();
 
+  rehydrateState$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(mealKanBanActions.rehydrateState),
+      map(() => {
+        const json = loadstate();
+        return mealKanBanActions.rehydrateStateSuccess({
+          MealPlan: json.MealPlan,
+          SelectFrom: json.SelectFrom,
+        });
+      })
+    )
+  ).subscribe();
+
   loadFavFoodList$ = createEffect(() =>
     this.actions$.pipe(
       ofType(mealKanBanActions.getFavFoodList),
-      mergeMap(() => {
+      switchMap(() => {
         return this.http.getPlanMealsData().pipe(
-          map((data: FavFoodList[]) =>
-            mealKanBanActions.getFavFoodListSuccess({
-              payload: data,
-            })
-          ),
+          map((data: FavFoodList[]) => {
+            return mealKanBanActions.getFavFoodListSuccess({
+              payload: [...data],
+            });
+          }),
           catchError(() => console.error)
         );
       })

@@ -28,7 +28,6 @@ import { MealKanBanEffects } from "./store/meal-kan-ban/effects/meal-kan-ban.eff
 @NgModule({
   declarations: [
     AppComponent,
-
     RegisterComponent,
     LoginComponent,
     ProfileComponent,

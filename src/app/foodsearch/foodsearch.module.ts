@@ -9,12 +9,11 @@ import { CategoryListComponent } from "./category-list/category-list.component";
 import { HighlightDirective } from "../highlight.directive";
 import { SearchboxComponent } from "./searchbox/searchbox.component";
 import { StepperDirective } from "../stepper.directive";
-import { MealKanBanComponent } from "./meal-kan-ban/meal-kan-ban.component";
+
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { StoreModule, Store } from "@ngrx/store";
+import { StoreModule } from "@ngrx/store";
 import * as fromMealKanBan from "../store/meal-kan-ban/reducers/meal-kan-ban.reducers";
-import { EffectsModule } from "@ngrx/effects";
-import { MealKanBanEffects } from "../store/meal-kan-ban/effects/meal-kan-ban.effects";
+import { KanBanBoardComponent } from "./kan-ban-board/kan-ban-board.component";
 
 const modules = [
   CommonModule,
@@ -28,11 +27,10 @@ const modules = [
 
 const components = [
   SearchboxComponent,
+  KanBanBoardComponent,
   CategoryListComponent,
-
   HighlightDirective,
   StepperDirective,
-  MealKanBanComponent,
 ];
 
 @NgModule({

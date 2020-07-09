@@ -16,12 +16,13 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatIconModule } from "@angular/material/icon";
-import { MainNavComponent } from "./main-nav/main-nav.component";
 import { ErrorComponent } from "./error/error.component";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MainNavComponent } from "./main-nav/main-nav.component";
+import { RouterModule } from "@angular/router";
 
-const components = [MainNavComponent, ErrorComponent];
+const components = [ErrorComponent, MainNavComponent];
 const modules = [
   CommonModule,
   MatCheckboxModule,
@@ -40,6 +41,7 @@ const modules = [
   MatIconModule,
   MatToolbarModule,
   MatSidenavModule,
+  RouterModule,
 ];
 
 @NgModule({

@@ -79,10 +79,10 @@ export class CategoryListComponent implements OnInit {
     }, 3000);
   }
 
-  favFood(fdc_id) {
-    const response = this.meals.postPlanMealsData(fdc_id);
+  favFood() {
+    const response = this.meals.postPlanMealsData(this.foodItem.fdc_id);
     response.subscribe();
-    // this.added();
+    this.added();
   }
 
   added() {

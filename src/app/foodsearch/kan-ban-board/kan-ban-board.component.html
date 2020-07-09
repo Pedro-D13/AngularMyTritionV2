@@ -1,0 +1,53 @@
+<p>kan-ban-board works!</p>
+
+<ng-container *ngIf="FavFood$ | async"></ng-container>
+<button mat-icon-button (click)="deleteState()">Delete State</button>
+<div cdkDropListGroup>
+  <div class="example-container">
+    <h2>Fav Foods</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="SelectFrom"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="example-box" *ngFor="let item of SelectFrom" cdkDrag>
+        {{ item.description }}
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Meal Plan "food item per 100g"</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="MealPlan"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="example-box" *ngFor="let item of MealPlan" cdkDrag>
+        {{ item.description }}
+        <ng-container *ngFor="let nutr of item.nutr_vals">
+          <br />
+          {{ nutr.name }} {{ nutr.amount }} {{ nutr.unit_name }}
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="example-container">
+    <h2>BreakDown</h2>
+    <h3>Energy</h3>
+    <h3>
+      2500 Calories
+      <mat-progress-spinner
+        class="example-margin"
+        color="primary"
+        mode="determinate"
+        [value]="MealPlan.length > 0 ? totalEnergy$ / 25 : 0"
+      >
+      </mat-progress-spinner>
+    </h3>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 <h1 class="login-form">Login page</h1>
-<div class="login-form">
-  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+
+<ng-container class="login-form">
+  <form (ngSubmit)="loginUser()" [formGroup]="loginForm">
     <mat-form-field hideRequiredMarker>
       <mat-label>Enter a username </mat-label>
       <input
@@ -22,8 +23,8 @@
       />
     </mat-form-field>
     <br />
-    <button [disabled]="loginForm.invalid" type="submit" mat-stroked-button>
+    <button type="submit" [disabled]="loginForm.invalid" mat-stroked-button>
       Login
     </button>
   </form>
-</div>
+</ng-container>

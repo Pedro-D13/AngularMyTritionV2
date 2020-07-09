@@ -8,12 +8,13 @@ import { ProfileComponent } from "./auth/profile/profile.component";
 import { AuthenticatedGuard } from "./auth/guards/authenticated.guard";
 import { LogoutComponent } from "./auth/logout/logout.component";
 
-import { MealKanBanComponent } from "./foodsearch/meal-kan-ban/meal-kan-ban.component";
 import { LogoutGuard } from "./auth/guards/logout.guard";
 import { ErrorComponent } from "./shared/error/error.component";
+import { KanBanBoardComponent } from "./foodsearch/kan-ban-board/kan-ban-board.component";
 
 const routes: Routes = [
   { path: "search", component: SearchboxComponent },
+
   { path: "register", component: RegisterComponent },
   {
     path: "login",
@@ -29,7 +30,7 @@ const routes: Routes = [
   {
     path: "kanban",
     canActivate: [AuthenticatedGuard],
-    component: MealKanBanComponent,
+    component: KanBanBoardComponent,
   },
   { path: "", component: SearchboxComponent },
   { path: "**", component: ErrorComponent },

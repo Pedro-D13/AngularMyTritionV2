@@ -1,10 +1,22 @@
+export interface RehydrateState {
+  SelectFrom: [];
+  MealPlan: [];
+  type?: any;
+}
+
 export const loadstate = () => {
   try {
     const serializedState = localStorage.getItem("state");
     if (serializedState === null) {
       return undefined;
     }
-    return JSON.parse(serializedState);
+    const rehydratedState: RehydrateState = JSON.parse(
+      serializedState,
+      (key, value) => {
+        return value;
+      }
+    );
+    return rehydratedState;
   } catch (err) {
     return undefined;
   }
