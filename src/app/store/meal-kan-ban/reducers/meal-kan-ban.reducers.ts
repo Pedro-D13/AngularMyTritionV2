@@ -38,10 +38,11 @@ const mealkanbanReduer = createReducer(
     loaded: false,
     response: payload,
   })),
-  on(mealKanBanActions.saveMealPlan, (state, { SelectFrom, MealPlan }) => ({
+  on(mealKanBanActions.saveMealPlan, (state) => ({
     ...state,
-    list: SelectFrom,
-    mealPlan: MealPlan,
+  })),
+  on(mealKanBanActions.saveMealPlanSuccess, (state) => ({
+    ...state,
   })),
   on(mealKanBanActions.rehydrateState, (state) => ({
     ...state,

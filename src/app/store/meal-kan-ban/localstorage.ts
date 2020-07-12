@@ -22,11 +22,11 @@ export const loadstate = () => {
   }
 };
 
-export const savestate = (state) => {
+export const savestate = (state: Object) => {
   try {
     const serializableState = JSON.stringify(state);
-    localStorage.setItem("state", serializableState);
+    return localStorage.setItem("state", serializableState);
   } catch (err) {
-    console.error(err);
+    return console.error(err);
   }
 };

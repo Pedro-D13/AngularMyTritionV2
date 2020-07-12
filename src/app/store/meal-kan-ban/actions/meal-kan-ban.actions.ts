@@ -21,6 +21,10 @@ export const saveMealPlan = createAction(
   props<{ SelectFrom: FavFoodList[]; MealPlan: FavFoodList[] }>()
 );
 
+export const saveMealPlanSuccess = createAction(
+  "[meal-kan-ban] Meal Plan Successfully saved"
+);
+
 export const rehydrateState = createAction(
   "[meal-kan-ban] rehydrate the current state"
 );

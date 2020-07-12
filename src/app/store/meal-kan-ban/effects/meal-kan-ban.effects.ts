@@ -14,11 +14,12 @@ export class MealKanBanEffects {
   saveMealPlan$ = createEffect(() =>
     this.actions$.pipe(
       ofType(mealKanBanActions.saveMealPlan),
-      tap((data) => {
-        return savestate(data);
+      tap(({ SelectFrom, MealPlan }) => savestate({ SelectFrom, MealPlan })),
+      map(() => {
+        return mealKanBanActions.saveMealPlanSuccess();
       })
     )
-  ).subscribe();
+  );
 
   rehydrateState$ = createEffect(() =>
     this.actions$.pipe(
@@ -31,7 +32,7 @@ export class MealKanBanEffects {
         });
       })
     )
-  ).subscribe();
+  );
 
   loadFavFoodList$ = createEffect(() =>
     this.actions$.pipe(

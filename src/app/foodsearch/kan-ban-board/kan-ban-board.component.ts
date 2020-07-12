@@ -51,6 +51,7 @@ export class KanBanBoardComponent implements OnInit, OnDestroy {
   }
 
   macrosGroup(nutrName) {
+    // this should be a subject
     return from(this.MealPlan).pipe(
       pluck("nutr_vals"),
       map((data) => {
@@ -67,6 +68,7 @@ export class KanBanBoardComponent implements OnInit, OnDestroy {
     );
   }
 
+  // these should be observing from a subject
   getMacro() {
     this.macrosGroup("Energy").subscribe(
       (x) => (this.totalEnergy$ = Math.round(x))
@@ -99,11 +101,18 @@ export class KanBanBoardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     //  if nothing has been transfered over to the meal plan no need to save it?
-    if (this.MealPlan !== null) {
+    if (this.MealPlan.length > 0) {
       this.store.dispatch(
         kanBanActions.saveMealPlan({
           SelectFrom: this.SelectFrom,
           MealPlan: this.MealPlan,
+        })
+      );
+    } else {
+      this.store.dispatch(
+        kanBanActions.saveMealPlan({
+          SelectFrom: this.SelectFrom,
+          MealPlan: [],
         })
       );
     }
@@ -140,7 +149,6 @@ export class KanBanBoardComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
-      this.getMacro();
     }
   }
 }
