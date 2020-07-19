@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.loginResponse$ = this.auth.loginUser(data);
     this.loginResponse$.subscribe((data) => {
       localStorage.setItem("token", data["auth_token"]);
-      this.router.navigateByUrl("profile");
+      this.router.navigateByUrl("kanban");
     });
   }
 }

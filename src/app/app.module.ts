@@ -20,10 +20,11 @@ import { ProfileComponent } from "./auth/profile/profile.component";
 import { LogoutComponent } from "./auth/logout/logout.component";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import {} from "src/app/store/meal-kan-ban/";
 import { environment } from "../environments/environment"; // Angular CLI environment
 import { EffectsModule } from "@ngrx/effects";
 import { MealKanBanEffects } from "./store/meal-kan-ban/effects/meal-kan-ban.effects";
+import { KanBanBoardModule } from "./board/kan-ban-board.module";
+import { reducer } from "./store/meal-kan-ban/reducers/meal-kan-ban.reducers";
 
 @NgModule({
   declarations: [
@@ -36,9 +37,10 @@ import { MealKanBanEffects } from "./store/meal-kan-ban/effects/meal-kan-ban.eff
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    KanBanBoardModule,
     HttpClientModule,
     SharedModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ BoardState: reducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 24,
       logOnly: environment.production,

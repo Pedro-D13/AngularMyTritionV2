@@ -1,7 +1,7 @@
-<p>kan-ban-board works!</p>
-
 <ng-container *ngIf="FavFood$ | async"></ng-container>
-<button mat-icon-button (click)="deleteState()">Delete State</button>
+
+<app-nutrient-breakdown></app-nutrient-breakdown>
+
 <div cdkDropListGroup>
   <div class="example-container">
     <h2>Fav Foods</h2>
@@ -35,19 +35,5 @@
         </ng-container>
       </div>
     </div>
-  </div>
-  <div class="example-container">
-    <h2>BreakDown</h2>
-    <h3>Energy</h3>
-    <h3>
-      2500 Calories
-      <mat-progress-spinner
-        class="example-margin"
-        color="primary"
-        mode="determinate"
-        [value]="MealPlan.length > 0 ? totalEnergy$ / 25 : 0"
-      >
-      </mat-progress-spinner>
-    </h3>
   </div>
 </div>

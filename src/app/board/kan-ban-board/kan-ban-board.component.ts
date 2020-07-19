@@ -1,30 +1,17 @@
 import { Observable, from, iif, of, concat } from "rxjs";
-import { FavFoodList, Macros } from "../models/api-data-interface";
+
 import { Store, select } from "@ngrx/store";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 
 import * as kanBanActions from "../../store/meal-kan-ban/actions/meal-kan-ban.actions";
 import { KanBanState } from "src/app/store/meal-kan-ban/reducers/meal-kan-ban.reducers";
-import {
-  map,
-  shareReplay,
-  pluck,
-  groupBy,
-  mergeAll,
-  switchMap,
-  concatAll,
-  mergeMap,
-  reduce,
-  filter,
-  scan,
-  mergeScan,
-  toArray,
-} from "rxjs/operators";
+import { map, shareReplay } from "rxjs/operators";
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from "@angular/cdk/drag-drop";
+import { FavFoodList } from "src/app/foodsearch/models/api-data-interface";
 
 @Component({
   selector: "app-kan-ban-board",
@@ -48,43 +35,6 @@ export class KanBanBoardComponent implements OnInit, OnDestroy {
   // retrieves state from the store, KanBanState
   constructor(private store: Store<{ Mealplan: KanBanState }>) {
     // pipes the selected state and allows you to select different data from it. i.e. list,loading,mealplan etc
-  }
-
-  macrosGroup(nutrName) {
-    // this should be a subject
-    return from(this.MealPlan).pipe(
-      pluck("nutr_vals"),
-      map((data) => {
-        let num = 0;
-        data.forEach((ele) => {
-          // inputs the name of the nutr
-          if (ele.name === `${nutrName}`) {
-            num = ele.amount;
-          }
-        });
-        return num;
-      }),
-      reduce((acc, val) => acc + val)
-    );
-  }
-
-  // these should be observing from a subject
-  getMacro() {
-    this.macrosGroup("Energy").subscribe(
-      (x) => (this.totalEnergy$ = Math.round(x))
-    );
-    this.macrosGroup("Protein").subscribe(
-      (x) => (this.totalProtein$ = Math.round(x))
-    );
-    this.macrosGroup("Sugars").subscribe(
-      (x) => (this.totalSugars$ = Math.round(x))
-    );
-    this.macrosGroup("Total lipid (fat)").subscribe(
-      (x) => (this.totalFats$ = Math.round(x))
-    );
-    this.macrosGroup("Carbohydrate, by difference").subscribe(
-      (x) => (this.totalCarbs$ = Math.round(x))
-    );
   }
 
   ngOnInit(): void {
@@ -131,10 +81,6 @@ export class KanBanBoardComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteState() {
-    localStorage.removeItem("state");
-  }
-
   drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -150,8 +96,58 @@ export class KanBanBoardComponent implements OnInit, OnDestroy {
         event.currentIndex
       );
     }
+    this.store.dispatch(
+      kanBanActions.MealPlanUpdate({
+        SelectFrom: this.SelectFrom,
+        MealPlan: this.MealPlan,
+      })
+    );
+    this.store.dispatch(
+      kanBanActions.saveMealPlan({
+        SelectFrom: this.SelectFrom,
+        MealPlan: this.MealPlan,
+      })
+    );
   }
 }
+
+// macrosGroup(nutrName) {
+//   // this should be a subject
+//   return from(this.MealPlan).pipe(
+//     pluck("nutr_vals"),
+//     map((data) => {
+//       let num = 0;
+//       data.forEach((ele) => {
+//         // inputs the name of the nutr
+//         if (ele.name === `${nutrName}`) {
+//           num = ele.amount;
+//         }
+//       });
+//       return num;
+//     }),
+//     reduce((acc, val) => acc + val)
+//   );
+// }
+
+// these should be observing from a subject
+// getMacro() {
+//   this.macrosGroup("Energy").subscribe(
+//     (x) => (this.totalEnergy$ = Math.round(x))
+//   );
+//   this.macrosGroup("Protein").subscribe(
+//     (x) => (this.totalProtein$ = Math.round(x))
+//   );
+//   this.macrosGroup("Sugars").subscribe(
+//     (x) => (this.totalSugars$ = Math.round(x))
+//   );
+//   this.macrosGroup("Total lipid (fat)").subscribe(
+//     (x) => (this.totalFats$ = Math.round(x))
+//   );
+//   this.macrosGroup("Carbohydrate, by difference").subscribe(
+//     (x) => (this.totalCarbs$ = Math.round(x))
+//   );
+// }
+
 // deleteFoodItem(item, index) {
 //   this.http.deletePlanMealsData(item.fdc_id).subscribe((data) => {
 //     if (index > -1) {

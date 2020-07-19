@@ -1,8 +1,6 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import * as mealKanBanActions from "../actions/meal-kan-ban.actions";
 import { FavFoodList } from "src/app/foodsearch/models/api-data-interface";
-import { state } from "@angular/animations";
-import { loadstate, savestate } from "../localstorage";
 
 export interface KanBanState {
   list: FavFoodList[];
@@ -55,12 +53,10 @@ const mealkanbanReduer = createReducer(
       mealPlan: MealPlan,
     })
   ),
-  on(mealKanBanActions.clearMealPlan, (state) => ({
+  on(mealKanBanActions.MealPlanUpdate, (state, { SelectFrom, MealPlan }) => ({
     ...state,
-    mealPlan: [],
-  })),
-  on(mealKanBanActions.calculateEnergy, (state) => ({
-    ...state,
+    list: SelectFrom,
+    mealPlan: MealPlan,
   }))
 );
 

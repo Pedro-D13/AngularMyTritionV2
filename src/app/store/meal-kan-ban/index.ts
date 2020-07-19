@@ -1,17 +1,16 @@
-import { createSelector } from "@ngrx/store";
-import { FavFoodList } from "src/app/foodsearch/models/api-data-interface";
+import { createSelector, createFeatureSelector } from "@ngrx/store";
+
+import { KanBanState } from "./reducers/meal-kan-ban.reducers";
 
 export interface MealKanBanState {
-  list: FavFoodList[];
+  boardState: KanBanState;
 }
 
-export interface AppState {
-  mealkanban: MealKanBanState;
-}
-
-export const selectMealKanBan = (state: AppState) => state.mealkanban;
+export const selectMealKanBan = createFeatureSelector<MealKanBanState>(
+  "boardState"
+);
 
 export const selectMealKanBanList = createSelector(
   selectMealKanBan,
-  (state: MealKanBanState) => state.list
+  (state: MealKanBanState) => state.boardState
 );

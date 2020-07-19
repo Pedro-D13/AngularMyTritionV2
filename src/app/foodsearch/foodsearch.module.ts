@@ -10,15 +10,12 @@ import { HighlightDirective } from "../highlight.directive";
 import { SearchboxComponent } from "./searchbox/searchbox.component";
 import { StepperDirective } from "../stepper.directive";
 
-import { DragDropModule } from "@angular/cdk/drag-drop";
 import { StoreModule } from "@ngrx/store";
 import * as fromMealKanBan from "../store/meal-kan-ban/reducers/meal-kan-ban.reducers";
-import { KanBanBoardComponent } from "./kan-ban-board/kan-ban-board.component";
 
 const modules = [
   CommonModule,
   SharedModule,
-  DragDropModule,
   StoreModule.forFeature(
     fromMealKanBan.mealkanbanFeatureKey,
     fromMealKanBan.reducer
@@ -27,7 +24,6 @@ const modules = [
 
 const components = [
   SearchboxComponent,
-  KanBanBoardComponent,
   CategoryListComponent,
   HighlightDirective,
   StepperDirective,
