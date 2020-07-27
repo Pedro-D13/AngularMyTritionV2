@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import * as mealKanBanActions from "../actions/meal-kan-ban.actions";
 import { FavFoodList } from "src/app/foodsearch/models/api-data-interface";
+import { state } from "@angular/animations";
 
 export interface KanBanState {
   list: FavFoodList[];
@@ -57,6 +58,10 @@ const mealkanbanReduer = createReducer(
     ...state,
     list: SelectFrom,
     mealPlan: MealPlan,
+  })),
+  on(mealKanBanActions.RemoveFoodItem, (state, { newFavFoodList }) => ({
+    ...state,
+    list: newFavFoodList,
   }))
 );
 

@@ -3,15 +3,21 @@
 <div cdkDropListGroup>
   <div class="example-container">
     <h2>Fav Foods</h2>
-
     <div
       cdkDropList
       [cdkDropListData]="SelectFrom"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div class="example-box" *ngFor="let item of SelectFrom" cdkDrag>
+      <div
+        class="example-box"
+        *ngFor="let item of SelectFrom; let i = index"
+        cdkDrag
+      >
         {{ item.description }}
+        <button mat-icon-button (click)="delete(item, i)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </div>
   </div>

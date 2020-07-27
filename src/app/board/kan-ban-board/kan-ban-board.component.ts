@@ -103,49 +103,25 @@ export class KanBanBoardComponent implements OnInit, OnDestroy {
       })
     );
   }
+
+  delete(item: FavFoodList, index) {
+    if (index > -1) {
+      this.SelectFrom.splice(index, 1);
+    }
+    this.store.dispatch(
+      kanBanActions.RemoveFoodItem({
+        itemToBeRemoved: item.fdc_id,
+        newFavFoodList: this.SelectFrom,
+        MealPlan: this.MealPlan,
+      })
+    );
+  }
+
+  // deleteFoodItem(item, index) {
+  //   this.http.deletePlanMealsData(item.fdc_id).subscribe((data) => {
+  //     if (index > -1) {
+  //       this.currList.splice(index, 1);
+  //     }
+  //   });
+  // }
 }
-
-// macrosGroup(nutrName) {
-//   // this should be a subject
-//   return from(this.MealPlan).pipe(
-//     pluck("nutr_vals"),
-//     map((data) => {
-//       let num = 0;
-//       data.forEach((ele) => {
-//         // inputs the name of the nutr
-//         if (ele.name === `${nutrName}`) {
-//           num = ele.amount;
-//         }
-//       });
-//       return num;
-//     }),
-//     reduce((acc, val) => acc + val)
-//   );
-// }
-
-// these should be observing from a subject
-// getMacro() {
-//   this.macrosGroup("Energy").subscribe(
-//     (x) => (this.totalEnergy$ = Math.round(x))
-//   );
-//   this.macrosGroup("Protein").subscribe(
-//     (x) => (this.totalProtein$ = Math.round(x))
-//   );
-//   this.macrosGroup("Sugars").subscribe(
-//     (x) => (this.totalSugars$ = Math.round(x))
-//   );
-//   this.macrosGroup("Total lipid (fat)").subscribe(
-//     (x) => (this.totalFats$ = Math.round(x))
-//   );
-//   this.macrosGroup("Carbohydrate, by difference").subscribe(
-//     (x) => (this.totalCarbs$ = Math.round(x))
-//   );
-// }
-
-// deleteFoodItem(item, index) {
-//   this.http.deletePlanMealsData(item.fdc_id).subscribe((data) => {
-//     if (index > -1) {
-//       this.currList.splice(index, 1);
-//     }
-//   });
-// }}

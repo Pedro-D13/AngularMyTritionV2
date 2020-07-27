@@ -1,5 +1,8 @@
 import { createAction, props } from "@ngrx/store";
-import { FavFoodList } from "src/app/foodsearch/models/api-data-interface";
+import {
+  FavFoodList,
+  Macros,
+} from "src/app/foodsearch/models/api-data-interface";
 
 export const getFavFoodList = createAction(
   "[meal-kan-ban] get request for users favfoods"
@@ -30,4 +33,13 @@ export const rehydrateStateSuccess = createAction(
 export const MealPlanUpdate = createAction(
   "[meal-kan-ban] Change detected in the MealPlan",
   props<{ SelectFrom: FavFoodList[]; MealPlan: FavFoodList[] }>()
+);
+
+export const RemoveFoodItem = createAction(
+  "[meal-kan-ban] delete food item from FavFoodList",
+  props<{
+    itemToBeRemoved: number;
+    newFavFoodList: FavFoodList[];
+    MealPlan: FavFoodList[];
+  }>()
 );
