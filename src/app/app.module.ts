@@ -49,7 +49,6 @@ import { reducer } from "./store/meal-kan-ban/reducers/meal-kan-ban.reducers";
     AppRoutingModule,
     LayoutModule,
     MatToolbarModule,
-    MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,

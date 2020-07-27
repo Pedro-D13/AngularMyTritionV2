@@ -23,14 +23,8 @@ export class KanBanBoardComponent implements OnInit, OnDestroy {
   FavFood$: Observable<FavFoodList[]>;
 
   // the lists used for the kan ban features
-  SelectFrom: FavFoodList[];
+  SelectFrom: FavFoodList[] = [];
   MealPlan: FavFoodList[] = [];
-
-  totalEnergy$ = 0;
-  totalProtein$ = 0;
-  totalCarbs$ = 0;
-  totalFats$ = 0;
-  totalSugars$ = 0;
 
   // retrieves state from the store, KanBanState
   constructor(private store: Store<{ Mealplan: KanBanState }>) {

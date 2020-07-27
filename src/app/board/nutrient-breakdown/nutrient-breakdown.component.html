@@ -1,7 +1,15 @@
 <p>nutrient-breakdown works!</p>
+<h1>totals</h1>
+<ng-container *ngFor="let each of breakDown | async as macros">
+  <br />
 
-<ng-container *ngFor="let each of calculatedMacros">
-  Total: {{ each }}<br />
+  {{ each[0] }}
+  <mat-progress-bar
+    [color]="each[1] < getGuideLine(each[0]) ? 'accent' : 'warn'"
+    [value]="(each[1] / getGuideLine(each[0])) * 100"
+    mode="determinate"
+  ></mat-progress-bar>
+  current: {{ each[1] }} {{ each[2] }} <br />
+  guidelines:{{ getGuideLine(each[0]) }} {{ each[2] }}
+  <br />
 </ng-container>
-
-<button (click)="getMealPlanState()">click</button>

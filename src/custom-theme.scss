@@ -13,7 +13,8 @@
 // hue. Available color palettes: https://material.io/design/color/
 
 $MytritionUIV2-primary: mat-palette($mat-orange, A100);
-$MytritionUIV2-accent: mat-palette($mat-deep-orange, 500);
+$MytritionUIV2-accent: mat-palette($mat-green, A400);
+// $MytritionUIV2-accent: mat-palette($mat-deep-orange, 200);
 
 // The warn palette is optional (defaults to red).
 $MytritionUIV2-warn: mat-palette($mat-red);

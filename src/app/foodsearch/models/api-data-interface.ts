@@ -15,11 +15,6 @@ export interface Macros {
   unit_name: string;
 }
 
-export interface nutrient {
-  name: string;
-  value: number;
-}
-
 export interface FavFoodList {
   description: string;
   fdc_id: number;

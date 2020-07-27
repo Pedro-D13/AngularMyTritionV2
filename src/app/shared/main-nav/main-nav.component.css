@@ -30,6 +30,7 @@ mat-toolbar a {
 
 mat-toolbar .site-title {
   color: black;
+  font-size: large;
 }
 
 @media (min-width: 599px) {

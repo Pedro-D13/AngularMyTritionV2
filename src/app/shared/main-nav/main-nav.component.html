@@ -21,8 +21,8 @@
         <a *ngSwitchCase="true" mat-list-item routerLink="/kanban"
           >Plan Meals</a
         >
-        <a *ngSwitchCase="true" mat-list-item routerLink="/logout">Logout</a>
         <a *ngSwitchCase="true" mat-list-item routerLink="/profile">Profile</a>
+        <a *ngSwitchCase="true" mat-list-item routerLink="/logout">Logout</a>
       </ng-container>
     </mat-nav-list>
   </mat-sidenav>
@@ -38,7 +38,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <a class="site-title" mat-button routerLink="/search"
-        ><span>MytritionUIV3</span></a
+        ><span>Mytrition🥗</span></a
       >
 
       <span class="spacer"></span>
@@ -46,18 +46,12 @@
         <a mat-button routerLink="">Search</a>
         <ng-container [ngSwitch]="authenticated">
           <!-- when users need to authenticate -->
-          <a
-            *ngSwitchCase="false"
-            mat-button
-            routerLink="/login"
-            routerLinkActive="active"
-            >Login</a
-          >
+          <a *ngSwitchCase="false" mat-button routerLink="/login">Login</a>
           <a *ngSwitchCase="false" mat-button routerLink="/register">Sign up</a>
           <!-- when users are authenticated -->
           <a *ngSwitchCase="true" mat-button routerLink="/kanban">Plan Meals</a>
-          <a *ngSwitchCase="true" mat-button routerLink="/logout">Logout</a>
           <a *ngSwitchCase="true" mat-button routerLink="/profile">Profile</a>
+          <a *ngSwitchCase="true" mat-button routerLink="/logout">Logout</a>
         </ng-container>
       </nav>
     </mat-toolbar>
