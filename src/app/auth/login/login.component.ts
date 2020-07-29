@@ -11,7 +11,6 @@ import { AuthenticateService } from "../authenticate.service";
 export class LoginComponent implements OnInit {
   // set an interface/type for the webtoken
   loginResponse$;
-  webtoken;
   loginForm: FormGroup;
 
   constructor(

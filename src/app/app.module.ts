@@ -25,6 +25,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { MealKanBanEffects } from "./store/meal-kan-ban/effects/meal-kan-ban.effects";
 import { KanBanBoardModule } from "./board/kan-ban-board.module";
 import { reducer } from "./store/meal-kan-ban/reducers/meal-kan-ban.reducers";
+import { AuthenticateService } from "./auth/authenticate.service";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import { reducer } from "./store/meal-kan-ban/reducers/meal-kan-ban.reducers";
     MatListModule,
     EffectsModule.forRoot([MealKanBanEffects]),
   ],
-  providers: [],
+  providers: [AuthenticateService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

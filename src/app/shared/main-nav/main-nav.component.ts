@@ -9,10 +9,17 @@ import { map, shareReplay, mergeMap } from "rxjs/operators";
   styleUrls: ["./main-nav.component.css"],
 })
 export class MainNavComponent {
-  authenticated: boolean = false;
-  authenticatedCheck = of(localStorage.getItem("token"))
-    .pipe(mergeMap((v) => iif(() => v !== null, of(true))))
-    .subscribe((data) => (this.authenticated = data));
+  authenticated = false;
+
+  authenticatedCheck = of(localStorage.getItem("token")).subscribe((data) => {
+    if (data !== null) {
+      this.authenticated = true;
+      console.log(true);
+    } else {
+      this.authenticated = false;
+      console.log(false);
+    }
+  });
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.HandsetPortrait, Breakpoints.XSmall])
